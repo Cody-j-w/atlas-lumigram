@@ -1,4 +1,5 @@
 import { Text, View } from "react-native";
+import { profileFeed } from "@/placeholder";
 
 export default function MyProfile() {
     return (

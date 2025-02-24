@@ -8,15 +8,15 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 import LogoutButton from '@/components/ui/Logout';
-import { Button } from 'react-native';
+import { Button, Text } from 'react-native';
+import { GestureHandlerRootView, RectButton } from 'react-native-gesture-handler';
+import { Colors } from '@/constants/Colors';
+import { MaterialIcons } from '@expo/vector-icons';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const logout = () => {
-    router.replace('/')
-  }
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
@@ -33,13 +33,16 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={DefaultTheme}>
-      <Stack>
-        <Stack.Screen name='index' options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerRight: () => <Button title='logout' onPress={() => { logout }} /> }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <GestureHandlerRootView>
+      <ThemeProvider value={DefaultTheme}>
+        <Stack>
+          <Stack.Screen name='index' options={{ headerShown: false }} />
+          <Stack.Screen name='register' options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerRight: () => <RectButton onPress={() => router.replace('/')}><MaterialIcons color={Colors.light.tint} size={28} name="logout" /></RectButton> }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+        <StatusBar style="auto" />
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }

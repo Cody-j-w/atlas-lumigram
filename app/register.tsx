@@ -3,7 +3,7 @@ import { Dimensions, Image, Pressable, StyleSheet, Text, TextInput, View } from 
 import { Colors } from '@/constants/Colors';
 import { useState } from "react";
 
-export default function Index() {
+export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     return (
@@ -23,13 +23,13 @@ export default function Index() {
                 onChangeText={(value) => setPassword(value)}
             />
             <Pressable>
-                <Text style={styles.loginButton} onPress={() => { router.replace('/(tabs)/home') }}>
-                    Sign in
+                <Text style={styles.createAccount} onPress={() => { router.replace('/(tabs)/home') }}>
+                    Create account
                 </Text>
             </Pressable>
             <Pressable>
-                <Text style={styles.registerButton} onPress={() => { router.replace('/register') }}>
-                    Create a new account
+                <Text style={styles.loginButton} onPress={() => { router.replace('/') }}>
+                    Login to existing account
                 </Text>
             </Pressable>
         </View>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         padding: 10,
         width: "100%"
     },
-    loginButton: {
+    createAccount: {
         textAlign: "center",
         padding: 10,
         backgroundColor: Colors.light.tint,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         borderRadius: 3
     },
-    registerButton: {
+    loginButton: {
         textAlign: "center",
         padding: 10,
         backgroundColor: "#00003C",
