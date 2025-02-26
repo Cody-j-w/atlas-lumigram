@@ -7,6 +7,8 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { RectButton } from 'react-native-gesture-handler';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -33,7 +35,9 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-          headerRight: () => <Button title='logout' onPress={() => router.replace('../')} />
+          headerRight: () => <RectButton onPress={() => router.replace('/')}><MaterialIcons color={Colors.light.tint} size={28} name="logout" /></RectButton>,
+          headerTitle: "Home",
+          headerShown: true
         }}
       />
       <Tabs.Screen
@@ -41,27 +45,39 @@ export default function TabLayout() {
         options={{
           title: 'Search',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="magnifyingglass" color={color} />,
+          headerRight: () => <RectButton onPress={() => router.replace('/')}><MaterialIcons color={Colors.light.tint} size={28} name="logout" /></RectButton>,
+          headerTitle: "Search",
+          headerShown: true
         }}
       />
       <Tabs.Screen
         name="add-post"
         options={{
           title: 'Add Post',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name='plus.circle' color={color} />
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name='plus.circle' color={color} />,
+          headerRight: () => <RectButton onPress={() => router.replace('/')}><MaterialIcons color={Colors.light.tint} size={28} name="logout" /></RectButton>,
+          headerTitle: "Add a Post",
+          headerShown: true
         }}
       />
       <Tabs.Screen
         name="favorites"
         options={{
           title: 'Favorites',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name='heart' color={color} />
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name='heart' color={color} />,
+          headerRight: () => <RectButton onPress={() => router.replace('/')}><MaterialIcons color={Colors.light.tint} size={28} name="logout" /></RectButton>,
+          headerTitle: "Favorites",
+          headerShown: true
         }}
       />
       <Tabs.Screen
         name="my-profile"
         options={{
           title: 'Your Profile',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name='rectangle.portrait.fill' color={color} />
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name='rectangle.portrait.fill' color={color} />,
+          headerRight: () => <RectButton onPress={() => router.replace('/')}><MaterialIcons color={Colors.light.tint} size={28} name="logout" /></RectButton>,
+          headerTitle: "Your profile",
+          headerShown: true
         }}
       />
     </Tabs>

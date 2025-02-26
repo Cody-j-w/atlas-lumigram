@@ -9,6 +9,9 @@ export default function Index() {
     return (
         <View style={styles.container}>
             <Image style={styles.logo} source={require('@/assets/images/logo.png')} />
+            <Text style={styles.header}>
+                Login
+            </Text>
             <TextInput
                 style={styles.input}
                 placeholder="Email"
@@ -43,7 +46,14 @@ const styles = StyleSheet.create({
         alignContent: "center",
         backgroundColor: "#00003C",
         padding: 10,
-        width: "100%"
+        width: "100%",
+    },
+    header: {
+        color: "#fff",
+        fontSize: 18,
+        fontWeight: "bold",
+        textAlign: "center",
+        margin: 10
     },
     loginButton: {
         textAlign: "center",
@@ -68,13 +78,19 @@ const styles = StyleSheet.create({
         color: Colors.dark.text,
         borderWidth: 1,
         borderRadius: 3,
-        marginBottom: 10
+        marginBottom: 10,
+        height: 50
     },
     logo: {
+
+        width: "80%",
+        height: 200,
+        resizeMode: 'contain',
+        alignSelf: "center"
+    },
+    logoContainer: {
         flex: 1,
-        flexDirection: "row",
-        width: "100%",
-        height: undefined,
-        resizeMode: 'contain'
+        width: "70%",
+        margin: "auto"
     }
 })

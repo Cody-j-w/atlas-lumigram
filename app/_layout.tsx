@@ -38,7 +38,7 @@ export default function RootLayout() {
         <Stack>
           <Stack.Screen name='index' options={{ headerShown: false }} />
           <Stack.Screen name='register' options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerRight: () => <RectButton onPress={() => router.replace('/')}><MaterialIcons color={Colors.light.tint} size={28} name="logout" /></RectButton> }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="auto" />

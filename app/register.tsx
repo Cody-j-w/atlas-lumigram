@@ -9,6 +9,9 @@ export default function Register() {
     return (
         <View style={styles.container}>
             <Image style={styles.logo} source={require('@/assets/images/logo.png')} />
+            <Text style={styles.header}>
+                Register
+            </Text>
             <TextInput
                 style={styles.input}
                 placeholder="Email"
@@ -45,6 +48,13 @@ const styles = StyleSheet.create({
         padding: 10,
         width: "100%"
     },
+    header: {
+        color: "#fff",
+        fontSize: 18,
+        fontWeight: "bold",
+        textAlign: "center",
+        margin: 10
+    },
     createAccount: {
         textAlign: "center",
         padding: 10,
@@ -71,10 +81,10 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     logo: {
-        flex: 1,
-        flexDirection: "row",
-        width: "100%",
-        height: undefined,
-        resizeMode: 'contain'
-    }
+
+        width: "80%",
+        height: 200,
+        resizeMode: 'contain',
+        alignSelf: "center"
+    },
 })
