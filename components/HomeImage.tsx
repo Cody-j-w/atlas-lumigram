@@ -6,7 +6,6 @@ import { rgbaColor } from "react-native-reanimated/lib/typescript/Colors";
 type ImageType = {
     image: string,
     caption: string,
-    id: string,
     createdBy: string
 }
 
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
     image: {
         width: "100%",
         height: "100%",
-        resizeMode: "contain"
+        resizeMode: "stretch"
     },
     captionUnhidden: {
         position: "absolute",
