@@ -2,10 +2,21 @@ import { Link, router } from "expo-router";
 import { Dimensions, Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { Colors } from '@/constants/Colors';
 import { useState } from "react";
+import { useAuth } from "@/components/AuthProvider";
 
 export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const auth = useAuth();
+
+    async function register() {
+        try {
+            await auth.register(email, password);
+            router.replace('/(tabs)/home')
+        } catch (error) {
+            alert("Could not create account. Please try again later");
+        }
+    }
     return (
         <View style={styles.container}>
             <Image style={styles.logo} source={require('@/assets/images/logo.png')} />
@@ -26,7 +37,7 @@ export default function Register() {
                 onChangeText={(value) => setPassword(value)}
             />
             <Pressable>
-                <Text style={styles.createAccount} onPress={() => { router.replace('/(tabs)/home') }}>
+                <Text style={styles.createAccount} onPress={() => register()}>
                     Create account
                 </Text>
             </Pressable>

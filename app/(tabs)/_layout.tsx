@@ -9,9 +9,16 @@ import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { RectButton } from 'react-native-gesture-handler';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useAuth } from '@/components/AuthProvider';
 
 export default function TabLayout() {
+  const auth = useAuth();
   const colorScheme = useColorScheme();
+
+  async function logout() {
+    await auth.logout();
+    router.replace('/');
+  }
   return (
     <Tabs
       screenOptions={{
@@ -35,7 +42,7 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-          headerRight: () => <RectButton onPress={() => router.replace('/')}><MaterialIcons color={Colors.light.tint} size={28} name="logout" /></RectButton>,
+          headerRight: () => <RectButton onPress={() => logout()}><MaterialIcons color={Colors.light.tint} size={28} name="logout" /></RectButton>,
           headerTitle: "Home",
           headerShown: true
         }}
@@ -45,7 +52,7 @@ export default function TabLayout() {
         options={{
           title: 'Search',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="magnifyingglass" color={color} />,
-          headerRight: () => <RectButton onPress={() => router.replace('/')}><MaterialIcons color={Colors.light.tint} size={28} name="logout" /></RectButton>,
+          headerRight: () => <RectButton onPress={() => logout()}><MaterialIcons color={Colors.light.tint} size={28} name="logout" /></RectButton>,
           headerTitle: "Search",
           headerShown: true
         }}
@@ -55,7 +62,7 @@ export default function TabLayout() {
         options={{
           title: 'Add Post',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name='plus.circle' color={color} />,
-          headerRight: () => <RectButton onPress={() => router.replace('/')}><MaterialIcons color={Colors.light.tint} size={28} name="logout" /></RectButton>,
+          headerRight: () => <RectButton onPress={() => logout()}><MaterialIcons color={Colors.light.tint} size={28} name="logout" /></RectButton>,
           headerTitle: "Add a Post",
           headerShown: true
         }}
@@ -65,7 +72,7 @@ export default function TabLayout() {
         options={{
           title: 'Favorites',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name='heart' color={color} />,
-          headerRight: () => <RectButton onPress={() => router.replace('/')}><MaterialIcons color={Colors.light.tint} size={28} name="logout" /></RectButton>,
+          headerRight: () => <RectButton onPress={() => logout()}><MaterialIcons color={Colors.light.tint} size={28} name="logout" /></RectButton>,
           headerTitle: "Favorites",
           headerShown: true
         }}
@@ -75,7 +82,7 @@ export default function TabLayout() {
         options={{
           title: 'Your Profile',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name='rectangle.portrait.fill' color={color} />,
-          headerRight: () => <RectButton onPress={() => router.replace('/')}><MaterialIcons color={Colors.light.tint} size={28} name="logout" /></RectButton>,
+          headerRight: () => <RectButton onPress={() => logout()}><MaterialIcons color={Colors.light.tint} size={28} name="logout" /></RectButton>,
           headerTitle: "Your profile",
           headerShown: true
         }}

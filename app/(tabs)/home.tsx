@@ -8,8 +8,30 @@ import { homeFeed } from "@/placeholder";
 import { FlashList } from "@shopify/flash-list";
 import HomeImage from "@/components/HomeImage";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import firestore from "@/lib/firestore";
+import { useEffect, useState } from "react";
+
+type Post = {
+    caption: string;
+    image: string;
+    createdAt: Date;
+    createdBy: string;
+}
+
 
 export default function HomeScreen() {
+    const [data, setData] = useState<Post[]>();
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const firestoreData = await firestore.getHome();
+                setData(firestoreData);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        fetchData();
+    }, [data])
     const tap = Gesture.Tap()
         .numberOfTaps(2)
         .onEnd(() => {
@@ -17,7 +39,6 @@ export default function HomeScreen() {
         })
         .runOnJS(true);
 
-    const data = homeFeed;
     return (
         <View style={styles.container}>
             <FlashList

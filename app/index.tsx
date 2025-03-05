@@ -2,10 +2,21 @@ import { Link, router } from "expo-router";
 import { Dimensions, Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { Colors } from '@/constants/Colors';
 import { useState } from "react";
+import { useAuth } from "@/components/AuthProvider";
 
 export default function Index() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const auth = useAuth();
+
+    async function login() {
+        try {
+            await auth.login(email, password);
+            router.replace('/(tabs)/home');
+        } catch (error) {
+            alert("Email or password is incorrect");
+        }
+    }
     return (
         <View style={styles.container}>
             <Image style={styles.logo} source={require('@/assets/images/logo.png')} />
@@ -26,7 +37,7 @@ export default function Index() {
                 onChangeText={(value) => setPassword(value)}
             />
             <Pressable>
-                <Text style={styles.loginButton} onPress={() => { router.replace('/(tabs)/home') }}>
+                <Text style={styles.loginButton} onPress={() => login()}>
                     Sign in
                 </Text>
             </Pressable>
