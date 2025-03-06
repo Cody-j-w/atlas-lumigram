@@ -28,6 +28,15 @@ export default function HomeScreen() {
     const onRefresh = useCallback(() => {
         setRefreshing(true);
         setTimeout(() => {
+            const fetchData = async () => {
+                try {
+                    const firestoreData = await firestore.getHome();
+                    setData(firestoreData);
+                } catch (err) {
+                    console.log(err);
+                }
+            };
+            fetchData();
             setRefreshing(false);
         }, 1000);
     }, []);
@@ -42,7 +51,6 @@ export default function HomeScreen() {
             }
         };
         fetchData();
-        console.log(data);
     }, [data])
     const tap = Gesture.Tap()
         .numberOfTaps(2)

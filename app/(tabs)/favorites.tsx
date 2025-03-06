@@ -27,6 +27,15 @@ export default function FavoriteScreen() {
     const onRefresh = useCallback(() => {
         setRefreshing(true);
         setTimeout(() => {
+            const fetchData = async () => {
+                try {
+                    const firestoreData = await firestore.getFavorites(auth.user?.uid!!);
+                    setFavorites(firestoreData);
+                } catch (err) {
+                    console.log(err);
+                }
+            };
+            fetchData();
             setRefreshing(false);
         }, 1000);
     }, []);
