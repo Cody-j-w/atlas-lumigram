@@ -9,7 +9,9 @@ import { FlashList } from "@shopify/flash-list";
 import HomeImage from "@/components/HomeImage";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import firestore from "@/lib/firestore";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useAuth } from "@/components/AuthProvider";
+
 
 type Post = {
     caption: string;
@@ -21,6 +23,15 @@ type Post = {
 
 export default function HomeScreen() {
     const [data, setData] = useState<Post[]>();
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+            setRefreshing(false);
+        }, 1000);
+    }, []);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -31,6 +42,7 @@ export default function HomeScreen() {
             }
         };
         fetchData();
+        console.log(data);
     }, [data])
     const tap = Gesture.Tap()
         .numberOfTaps(2)
@@ -47,6 +59,8 @@ export default function HomeScreen() {
                 )}
                 data={data}
                 estimatedItemSize={500}
+                onRefresh={onRefresh}
+                refreshing={refreshing}
             />
         </View>
     );

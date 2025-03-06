@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { rgbaColor } from "react-native-reanimated/lib/typescript/Colors";
+import { useAuth } from "./AuthProvider";
+import firestore from "@/lib/firestore";
 
 type ImageType = {
     image: string,
@@ -13,11 +15,16 @@ type ImageProps = {
     image: ImageType
 }
 export default function HomeImage(props: ImageProps) {
+    const auth = useAuth()
+    const currentUser = auth.user?.uid!!;
+    function Fave(userID: string, imageName: string, imageCaption: string, imageCreatedBy: string) {
+        firestore.addFavorite(userID, imageName, imageCaption, imageCreatedBy);
+    }
     const [hidden, setHidden] = useState(true);
     const tap = Gesture.Tap()
         .numberOfTaps(2)
         .onEnd(() => {
-            alert(`Favorited!`)
+            Fave(currentUser, props.image.image, props.image.caption, props.image.createdBy)
         })
         .runOnJS(true);
     const longPress = Gesture.LongPress()

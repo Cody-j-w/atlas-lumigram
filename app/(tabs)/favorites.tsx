@@ -8,24 +8,52 @@ import { homeFeed } from "@/placeholder";
 import { FlashList } from "@shopify/flash-list";
 import HomeImage from "@/components/HomeImage";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import firestore from "@/lib/firestore";
+import { useCallback, useEffect, useState } from "react";
+import { useAuth } from "@/components/AuthProvider";
+
+type Post = {
+    caption: string;
+    image: string;
+    createdAt: Date;
+    createdBy: string;
+}
 
 export default function FavoriteScreen() {
-    const tap = Gesture.Tap()
-        .numberOfTaps(2)
-        .onEnd(() => {
-            Alert.alert("tapped!")
-        })
-        .runOnJS(true);
+    const auth = useAuth();
+    const [favorites, setFavorites] = useState<Post[]>();
+    const [refreshing, setRefreshing] = useState(false);
 
-    const data = homeFeed;
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+            setRefreshing(false);
+        }, 1000);
+    }, []);
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const firestoreData = await firestore.getFavorites(auth.user?.uid!!);
+                setFavorites(firestoreData);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        fetchData();
+    }, [favorites])
+
     return (
         <View style={styles.container}>
             <FlashList
                 renderItem={({ item }) => (
                     <HomeImage image={item} />
                 )}
-                data={data}
+                data={favorites}
                 estimatedItemSize={500}
+                onRefresh={onRefresh}
+                refreshing={refreshing}
             />
         </View>
     );
